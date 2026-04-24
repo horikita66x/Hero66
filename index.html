@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>HORIKITA66 // космос & Karina</title>
+    <title>HORIKITA66 // static cosmos</title>
     <style>
         * {
             margin: 0;
@@ -14,14 +14,16 @@
         body {
             min-height: 100vh;
             background: #000;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', monospace;
+            /* ЖЁСТКИЙ, СТАТИЧНЫЙ ШРИФТ — без засечек, рубленый, монотонный */
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', 'Roboto Mono', monospace;
+            font-weight: 500; /* средняя насыщенность, не тонко, не жирно */
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
             position: relative;
             overflow: hidden;
-            touch-action: pan-x pan-y; /* сохраняем скролл, но не ломаем анимацию */
+            touch-action: pan-x pan-y;
         }
 
         /* ========== КОСМИЧЕСКИЙ ФОН С ЭФФЕКТОМ "ЛЕТЯЩАЯ КАМЕРА" ========== */
@@ -37,7 +39,6 @@
             overflow: hidden;
         }
 
-        /* слои звёзд с разной скоростью = эффект полёта */
         .star-layer {
             position: absolute;
             top: 0;
@@ -83,7 +84,6 @@
             opacity: 0.9;
         }
 
-        /* туманности для атмосферы */
         .nebula {
             position: absolute;
             width: 100%;
@@ -116,13 +116,13 @@
             z-index: 20;
             max-width: 520px;
             width: 100%;
-            background: rgba(6, 8, 18, 0.55);
+            background: rgba(6, 8, 18, 0.6);
             backdrop-filter: blur(18px);
-            border: 1px solid rgba(120, 100, 240, 0.4);
-            border-radius: 56px;
+            border: 1px solid rgba(120, 100, 240, 0.5);
+            border-radius: 28px; /* чуть более строгий угол, но не острый */
             padding: 2rem 1.8rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
         }
 
@@ -130,7 +130,7 @@
             width: 80px;
             height: 80px;
             background: radial-gradient(circle at 30% 30%, #1e1a35, #0a0818);
-            border-radius: 50%;
+            border-radius: 40px; /* квадратная форма с едва скруглёнными углами */
             margin: 0 auto 1.2rem;
             display: flex;
             align-items: center;
@@ -141,22 +141,27 @@
             transition: all 0.2s ease;
         }
 
+        /* СТАТИЧНЫЙ ШРИФТ — даже заголовок без наклона */
         h1 {
             font-size: 2.2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffffff, #c2baff);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            color: #ffffff;
             margin-bottom: 0.25rem;
+            font-family: inherit;
+            text-transform: uppercase;
         }
 
         .role {
-            color: #9aa9e0;
-            font-size: 0.8rem;
+            color: #aaafff;
+            font-size: 0.7rem;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            border-bottom: 1px solid #4a40aa;
+            display: inline-block;
+            padding-bottom: 6px;
         }
 
         .link-button {
@@ -164,71 +169,78 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: #10162e;
+            background: #0b0e1c;
             border: 1px solid #6c5ce7;
-            border-radius: 80px;
+            border-radius: 48px;
             padding: 0.85rem 1.2rem;
             width: 100%;
             max-width: 280px;
             margin: 0.6rem auto;
             text-decoration: none;
             font-weight: 600;
-            color: white;
+            font-size: 0.85rem;
+            color: #eef2ff;
             transition: all 0.25s ease;
+            font-family: monospace;
+            letter-spacing: 0.5px;
         }
 
         .link-button:hover {
-            background: #6c5ce7;
-            transform: translateY(-3px);
+            background: #2a2388;
+            border-color: #8f7eff;
+            transform: translateY(-2px);
         }
 
-        /* Специальный блок с @karina_540z — реалистичный и тёплый */
         .love-block {
             margin: 1.8rem 0 0.5rem;
-            padding: 1rem 0.8rem;
-            border-top: 1px dashed rgba(140, 110, 255, 0.5);
-            border-bottom: 1px dashed rgba(140, 110, 255, 0.5);
-            background: rgba(10, 12, 28, 0.4);
+            padding: 0.9rem 0.8rem;
+            border-top: 1px solid rgba(100, 80, 200, 0.5);
+            border-bottom: 1px solid rgba(100, 80, 200, 0.5);
+            background: rgba(0, 0, 0, 0.45);
             border-radius: 48px;
         }
 
         .love-text {
-            font-size: 0.9rem;
-            color: #cdd6f4;
-            letter-spacing: 0.3px;
+            font-size: 0.85rem;
+            font-weight: 450;
+            letter-spacing: 0.2px;
+            color: #cbdcff;
         }
 
         .heart {
             display: inline-block;
-            animation: heartbeat 1.6s ease infinite;
-            font-size: 1.1rem;
+            animation: heartbeat 1.8s ease infinite;
+            font-size: 1rem;
         }
 
         @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); text-shadow: 0 0 6px #ff6b9d; }
+            0%, 100% { transform: scale(1); text-shadow: 0 0 0px #ff99bb; }
+            50% { transform: scale(1.15); text-shadow: 0 0 6px #ff6b9d; }
         }
 
         .karina-link {
             color: #ffb3c6;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 600;
             border-bottom: 1px solid #ff9eb5;
             transition: 0.2s;
             display: inline-block;
+            font-family: monospace;
+            letter-spacing: 0.3px;
         }
 
         .karina-link:hover {
-            color: #ffdae6;
-            border-bottom-color: #ffb3c6;
-            text-shadow: 0 0 4px #ff99bb;
-            transform: scale(1.02);
+            color: #ffe0e9;
+            border-bottom-color: #ffc0d0;
+            text-shadow: 0 0 2px #ff99aa;
         }
 
         .footer {
             margin-top: 1.5rem;
             font-size: 0.6rem;
-            color: #5470b0;
+            font-family: monospace;
+            color: #5f73b0;
+            letter-spacing: 0.5px;
         }
 
         @media (max-width: 550px) {
@@ -236,17 +248,16 @@
                 padding: 1.5rem;
             }
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             .love-text {
-                font-size: 0.85rem;
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Эффект летящей камеры: 3 слоя звёзд + туманность -->
     <div class="universe">
         <div class="star-layer layer1"></div>
         <div class="star-layer layer2"></div>
@@ -255,14 +266,13 @@
     </div>
 
     <div class="container">
-        <div class="icon">🍄✨</div>
+        <div class="icon">🍄✦</div>
         <h1>HORIKITA66</h1>
         <div class="role">designer & admin — Fear Of God</div>
 
         <a href="https://t.me/+YEaQ5lYiFy4yZDIy" target="_blank" class="link-button">✦ FEAR OF GOD CHAT ✦</a>
         <a href="https://t.me/XOPNKNTA" target="_blank" class="link-button">► TELEGRAM: @XOPNKNTA</a>
 
-        <!-- ➕ НАДПИСЬ С ЛЮБОВЬЮ И ССЫЛКОЙ НА @karina_540z -->
         <div class="love-block">
             <div class="love-text">
                 <span class="heart">❤️</span> i love 
