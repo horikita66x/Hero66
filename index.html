@@ -3,88 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Баумштарк Андрей Иванович | Портфолио</title>
+    <title>Баумштарк Андрей | Персональная страница</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: #121214; 
-            color: #f5f5f7; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            background: #0d0e12; 
+            color: #fff; 
             min-height: 100vh;
-            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        .portfolio-container { 
-            background: #1a1a1e; 
-            max-width: 600px; 
-            width: 100%; 
-            border-radius: 24px; 
-            padding: 40px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
-            border: 1px solid #2a2a30;
-            text-align: center;
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: #161820;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid #252836;
         }
-        /* Блок для фотографии с заглушкой */
-        .profile-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
+        
+        /* КВАДРАТНЫЙ СЛАЙДЕР С ВОЗМОЖНОСТЬЮ ЛИСТАТЬ */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Делает блок строго квадратным */
+            border-radius: 12px;
+            overflow: hidden;
             margin-bottom: 20px;
-            border: 4px solid #ff9f1c;
-            box-shadow: 0 4px 15px rgba(255, 159, 28, 0.3);
-            background: #323242;
-            display: inline-flex;
+            background: #252836;
+        }
+        .slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover; /* Фотография заполняет квадрат без искажений */
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: #ff9f1c;
             font-weight: bold;
+            background: #1f222e;
         }
-        h1 { font-size: 2.1rem; margin-bottom: 8px; color: #fff; letter-spacing: -0.5px; }
-        .subtitle { color: #ff9f1c; font-weight: 600; font-size: 0.95rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1.5px; }
+        /* Стрелочки для перелистывания */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: 0.2s;
+            z-index: 10;
+        }
+        .arrow:hover { background: #ff9f1c; color: #0d0e12; }
+        .arrow-prev { left: 10px; }
+        .arrow-next { right: 10px; }
+
+        h1 { font-size: 1.8rem; margin-bottom: 5px; letter-spacing: -0.5px; text-align: center; }
+        .tag { color: #ff9f1c; font-size: 0.9rem; font-weight: bold; text-transform: uppercase; text-align: center; margin-bottom: 25px; block-size: auto; }
         
-        .info-card { background: #222227; padding: 20px; border-radius: 14px; text-align: left; margin-bottom: 25px; border-left: 4px solid #ff9f1c; }
-        .info-card p { margin-bottom: 12px; font-size: 1rem; color: #ccc; line-height: 1.5; }
-        .info-card p:last-child { margin-bottom: 0; }
-        .info-card strong { color: #fff; }
-        
-        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 35px; }
-        .skills-container span { background: rgba(255, 159, 28, 0.1); color: #ff9f1c; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; border: 1px solid rgba(255, 159, 28, 0.2); }
-        
-        .tg-button { display: inline-block; background: #ff9f1c; color: #121214; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 159, 28, 0.2); }
-        .tg-button:hover { background: #fff; color: #121214; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2); }
+        /* КОМПАКТНЫЙ БЛОК ИНФОРМАЦИИ */
+        .info-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #252836;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+        }
+        .info-list li:last-child { border-bottom: none; }
+        .info-list strong { color: #fff; }
+
+        .tg-btn {
+            display: block;
+            text-align: center;
+            background: #ff9f1c;
+            color: #0d0e12;
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .tg-btn:hover { background: #fff; }
     </style>
 </head>
 <body>
 
-    <div class="portfolio-container">
-        <!-- Ваша фотография. Если файла photo.jpg нет, сработает текстовая заглушка АБ -->
-        <img src="photo.jpg" alt="АБ" class="profile-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
-        <div class="profile-photo" style="display: none;">АБ</div>
+    <div class="container">
         
+        <!-- Квадратный слайдер -->
+        <div class="slider-container">
+            <button class="arrow arrow-prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="arrow arrow-next" onclick="moveSlide(1)">&#10095;</button>
+            
+            <div class="slides" id="slides">
+                <!-- Первая фотка (основная) -->
+                <img src="photo.jpg" alt="АБ" class="slide" onerror="this.onerror=null; this.src='https://placeholder.com';">
+                <!-- Вторая фотка (заглушка, можете загрузить photo2.jpg) -->
+                <img src="photo2.jpg" alt="Проект" class="slide" onerror="this.onerror=null; this.src='https://placeholder.com';">
+            </div>
+        </div>
+
         <h1>Баумштарк Андрей</h1>
-        <p class="subtitle">Персональное портфолио</p>
-        
-        <div class="info-card">
-            <p>🏫 <strong>Обучение:</strong> Алтайский архитектурно-строительный колледж (ААСК)</p>
-            <p>🏗️ <strong>Специальность:</strong> Мастер отделочных строительных и декоративных работ</p>
-            <p>🎯 <strong>Сфера интересов:</strong> Современный интерьерный дизайн, отделочные технологии и создание веб-страниц</p>
-        </div>
+        <div class="tag">Персональная страница</div>
 
-        <div class="skills-container">
-            <span>Декоративные работы</span>
-            <span>Дизайн интерьеров</span>
-            <span>Отделочные технологии</span>
-            <span>HTML5 & CSS3</span>
-            <span>GitHub Pages</span>
-        </div>
+        <!-- Краткая анкета -->
+        <ul class="info-list">
+            <li><span>📅 Дата рождения:</span> <strong>01.01.200X (впишите свою дату)</strong></li>
+            <li><span>🏫 Раньше учился:</span> <strong>Школа №... (впишите свою школу)</strong></li>
+            <li><span>🏗️ Сейчас учусь:</span> <strong>ААСК (Мастер отделочных работ)</strong></li>
+            <li><span>🎯 Чем занимался:</span> <strong>Спорт, дизайн, веб-разработка (измените на свое)</strong></li>
+        </ul>
 
-        <!-- Кнопка связи с вашей рабочей ссылкой -->
-        <a href="https://t.me" target="_blank" class="tg-button">Связаться в Telegram</a>
+        <a href="https://t.me" target="_blank" class="tg-btn">Связаться в Telegram</a>
     </div>
 
+    <!-- Логика работы слайдера -->
+    <script>
+        let currentSlide = 0;
+        function moveSlide(direction) {
+            const slidesContainer = document.getElementById('slides');
+            const totalSlides = slidesContainer.children.length;
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+    </script>
 </body>
 </html>
