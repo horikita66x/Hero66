@@ -2,288 +2,89 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>HORIKITA66 // static cosmos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Баумштарк Андрей Иванович | Портфолио</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #121214; 
+            color: #f5f5f7; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
             min-height: 100vh;
-            background: #000;
-            /* ЖЁСТКИЙ, СТАТИЧНЫЙ ШРИФТ — без засечек, рубленый, монотонный */
-            font-family: 'SF Mono', 'Fira Code', 'Courier New', 'Roboto Mono', monospace;
-            font-weight: 500; /* средняя насыщенность, не тонко, не жирно */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            touch-action: pan-x pan-y;
+            padding: 30px 20px;
         }
-
-        /* ========== КОСМИЧЕСКИЙ ФОН С ЭФФЕКТОМ "ЛЕТЯЩАЯ КАМЕРА" ========== */
-        .universe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            perspective: 4px;
-            perspective-origin: 50% 50%;
-            overflow: hidden;
-        }
-
-        .star-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-repeat: repeat;
-            background-position: 0 0;
-            will-change: transform;
-        }
-
-        .layer1 {
-            background-image: 
-                radial-gradient(1px 1px at 15% 30%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 72% 18%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 45% 68%, #f8f3ff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 88% 92%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 34% 12%, #ffe6b0, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 60% 50%, #fff, rgba(0,0,0,0));
-            background-size: 400px 400px;
-            animation: flyStars1 40s linear infinite;
-            opacity: 0.6;
-        }
-
-        .layer2 {
-            background-image: 
-                radial-gradient(2px 2px at 10% 20%, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 65% 45%, #fffaf0, rgba(0,0,0,0)),
-                radial-gradient(3px 2px at 35% 80%, #ffe6b0, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 92% 35%, #ffffff, rgba(0,0,0,0));
-            background-size: 550px 550px;
-            animation: flyStars2 60s linear infinite;
-            opacity: 0.8;
-        }
-
-        .layer3 {
-            background-image: 
-                radial-gradient(3px 3px at 25% 75%, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 80% 15%, #ffefb0, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 45% 90%, #ffffff, rgba(0,0,0,0));
-            background-size: 800px 800px;
-            animation: flyStars3 80s linear infinite;
-            opacity: 0.9;
-        }
-
-        .nebula {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(80, 60, 220, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 80% 70%, rgba(200, 60, 150, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 45% 85%, rgba(30, 150, 200, 0.08) 0%, transparent 55%);
-            filter: blur(55px);
-            mix-blend-mode: screen;
-            pointer-events: none;
-        }
-
-        @keyframes flyStars1 {
-            0% { transform: translate(0, 0) translateZ(0); }
-            100% { transform: translate(60px, 40px) translateZ(0); }
-        }
-        @keyframes flyStars2 {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-80px, 60px); }
-        }
-        @keyframes flyStars3 {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(100px, -70px); }
-        }
-
-        /* ========== ОСНОВНОЙ КОНТЕНТ ========== */
-        .container {
-            position: relative;
-            z-index: 20;
-            max-width: 520px;
-            width: 100%;
-            background: rgba(6, 8, 18, 0.6);
-            backdrop-filter: blur(18px);
-            border: 1px solid rgba(120, 100, 240, 0.5);
-            border-radius: 28px; /* чуть более строгий угол, но не острый */
-            padding: 2rem 1.8rem;
+        .portfolio-container { 
+            background: #1a1a1e; 
+            max-width: 600px; 
+            width: 100%; 
+            border-radius: 24px; 
+            padding: 40px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+            border: 1px solid #2a2a30;
             text-align: center;
-            transition: all 0.2s ease;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
         }
-
-        .icon {
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle at 30% 30%, #1e1a35, #0a0818);
-            border-radius: 40px; /* квадратная форма с едва скруглёнными углами */
-            margin: 0 auto 1.2rem;
-            display: flex;
+        /* Блок для фотографии с заглушкой */
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid #ff9f1c;
+            box-shadow: 0 4px 15px rgba(255, 159, 28, 0.3);
+            background: #323242;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
-            border: 1px solid #6f5bef;
-            box-shadow: 0 0 16px rgba(100, 80, 255, 0.3);
-            transition: all 0.2s ease;
+            font-size: 2.5rem;
+            color: #ff9f1c;
+            font-weight: bold;
         }
-
-        /* СТАТИЧНЫЙ ШРИФТ — даже заголовок без наклона */
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            color: #ffffff;
-            margin-bottom: 0.25rem;
-            font-family: inherit;
-            text-transform: uppercase;
-        }
-
-        .role {
-            color: #aaafff;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            letter-spacing: 1.5px;
-            font-weight: 500;
-            border-bottom: 1px solid #4a40aa;
-            display: inline-block;
-            padding-bottom: 6px;
-        }
-
-        .link-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: #0b0e1c;
-            border: 1px solid #6c5ce7;
-            border-radius: 48px;
-            padding: 0.85rem 1.2rem;
-            width: 100%;
-            max-width: 280px;
-            margin: 0.6rem auto;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: #eef2ff;
-            transition: all 0.25s ease;
-            font-family: monospace;
-            letter-spacing: 0.5px;
-        }
-
-        .link-button:hover {
-            background: #2a2388;
-            border-color: #8f7eff;
-            transform: translateY(-2px);
-        }
-
-        .love-block {
-            margin: 1.8rem 0 0.5rem;
-            padding: 0.9rem 0.8rem;
-            border-top: 1px solid rgba(100, 80, 200, 0.5);
-            border-bottom: 1px solid rgba(100, 80, 200, 0.5);
-            background: rgba(0, 0, 0, 0.45);
-            border-radius: 48px;
-        }
-
-        .love-text {
-            font-size: 0.85rem;
-            font-weight: 450;
-            letter-spacing: 0.2px;
-            color: #cbdcff;
-        }
-
-        .heart {
-            display: inline-block;
-            animation: heartbeat 1.8s ease infinite;
-            font-size: 1rem;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); text-shadow: 0 0 0px #ff99bb; }
-            50% { transform: scale(1.15); text-shadow: 0 0 6px #ff6b9d; }
-        }
-
-        .karina-link {
-            color: #ffb3c6;
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1px solid #ff9eb5;
-            transition: 0.2s;
-            display: inline-block;
-            font-family: monospace;
-            letter-spacing: 0.3px;
-        }
-
-        .karina-link:hover {
-            color: #ffe0e9;
-            border-bottom-color: #ffc0d0;
-            text-shadow: 0 0 2px #ff99aa;
-        }
-
-        .footer {
-            margin-top: 1.5rem;
-            font-size: 0.6rem;
-            font-family: monospace;
-            color: #5f73b0;
-            letter-spacing: 0.5px;
-        }
-
-        @media (max-width: 550px) {
-            .container {
-                padding: 1.5rem;
-            }
-            h1 {
-                font-size: 1.6rem;
-            }
-            .love-text {
-                font-size: 0.75rem;
-            }
-        }
+        h1 { font-size: 2.1rem; margin-bottom: 8px; color: #fff; letter-spacing: -0.5px; }
+        .subtitle { color: #ff9f1c; font-weight: 600; font-size: 0.95rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1.5px; }
+        
+        .info-card { background: #222227; padding: 20px; border-radius: 14px; text-align: left; margin-bottom: 25px; border-left: 4px solid #ff9f1c; }
+        .info-card p { margin-bottom: 12px; font-size: 1rem; color: #ccc; line-height: 1.5; }
+        .info-card p:last-child { margin-bottom: 0; }
+        .info-card strong { color: #fff; }
+        
+        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 35px; }
+        .skills-container span { background: rgba(255, 159, 28, 0.1); color: #ff9f1c; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; border: 1px solid rgba(255, 159, 28, 0.2); }
+        
+        .tg-button { display: inline-block; background: #ff9f1c; color: #121214; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 159, 28, 0.2); }
+        .tg-button:hover { background: #fff; color: #121214; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2); }
     </style>
 </head>
 <body>
 
-    <div class="universe">
-        <div class="star-layer layer1"></div>
-        <div class="star-layer layer2"></div>
-        <div class="star-layer layer3"></div>
-        <div class="nebula"></div>
-    </div>
-
-    <div class="container">
-        <div class="icon">🍄✦</div>
-        <h1>HORIKITA66</h1>
-        <div class="role">designer & admin — Fear Of God</div>
-
-        <a href="https://t.me/+YEaQ5lYiFy4yZDIy" target="_blank" class="link-button">✦ FEAR OF GOD CHAT ✦</a>
-        <a href="https://t.me/XOPNKNTA" target="_blank" class="link-button">► TELEGRAM: @XOPNKNTA</a>
-
-        <div class="love-block">
-            <div class="love-text">
-                <span class="heart">❤️</span> i love 
-                <a href="https://t.me/karina_540z" target="_blank" class="karina-link">
-                    @karina_540z
-                </a>
-                <span class="heart">❤️</span>
-            </div>
+    <div class="portfolio-container">
+        <!-- Ваша фотография. Если файла photo.jpg нет, сработает текстовая заглушка АБ -->
+        <img src="photo.jpg" alt="АБ" class="profile-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+        <div class="profile-photo" style="display: none;">АБ</div>
+        
+        <h1>Баумштарк Андрей</h1>
+        <p class="subtitle">Персональное портфолио</p>
+        
+        <div class="info-card">
+            <p>🏫 <strong>Обучение:</strong> Алтайский архитектурно-строительный колледж (ААСК)</p>
+            <p>🏗️ <strong>Специальность:</strong> Мастер отделочных строительных и декоративных работ</p>
+            <p>🎯 <strong>Сфера интересов:</strong> Современный интерьерный дизайн, отделочные технологии и создание веб-страниц</p>
         </div>
 
-        <div class="footer">official · HORIKITA66</div>
+        <div class="skills-container">
+            <span>Декоративные работы</span>
+            <span>Дизайн интерьеров</span>
+            <span>Отделочные технологии</span>
+            <span>HTML5 & CSS3</span>
+            <span>GitHub Pages</span>
+        </div>
+
+        <!-- Кнопка связи с вашей рабочей ссылкой -->
+        <a href="https://t.me" target="_blank" class="tg-button">Связаться в Telegram</a>
     </div>
+
 </body>
 </html>
