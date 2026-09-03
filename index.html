@@ -9,7 +9,7 @@
         
         body { 
             font-family: 'Courier New', Courier, monospace; 
-            background: #050507; 
+            background: #030305; 
             color: #ff0000; 
             min-height: 100vh;
             display: flex;
@@ -20,19 +20,19 @@
             position: relative;
         }
 
-        /* ЭФФЕКТ СКАНИРУЮЩИХ ЛИНИЙ ТЕРМИНАЛА */
+        /* ЭФФЕКТ СКАНИРУЮЩИХ ЛИНИЙ */
         body::before {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.05));
             z-index: 99;
             background-size: 100% 4px, 6px 100%;
             pointer-events: none;
         }
 
-        /* ПОЛНОЭКРАННЫЕ ГЛИТЧ-ПОМЕХИ (ПРОБЕГАЮТ РАЗ В 4 СЕКУНДЫ) */
+        /* ПЕРИОДИЧЕСКИЕ ПОМЕХИ НА ЭКРАНЕ */
         body::after {
             content: '';
             position: fixed;
@@ -46,153 +46,165 @@
 
         @keyframes screenGlitch {
             0%, 93%, 98%, 100% { opacity: 0; transform: skewX(0deg); }
-            94% { opacity: 0.8; background: rgba(255,0,0,0.2); transform: skewX(5deg) scaleY(1.1); }
-            95% { opacity: 0.4; background: rgba(0,0,255,0.2); transform: skewX(-5deg); }
-            96% { opacity: 0.9; transform: skewX(2deg); }
+            94% { opacity: 0.6; background: rgba(255,0,0,0.15); transform: skewX(6deg) scaleY(1.05); }
+            95% { opacity: 0.3; background: rgba(0,0,255,0.15); transform: skewX(-6deg); }
+            96% { opacity: 0.7; transform: skewX(3deg); }
             97% { opacity: 0; }
         }
 
         .terminal-box {
-            max-width: 450px;
+            max-width: 440px;
             width: 100%;
-            background: rgba(10, 5, 5, 0.95);
+            background: rgba(8, 4, 4, 0.95);
             padding: 40px 30px;
             border: 2px solid #ff0000;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2), inset 0 0 15px rgba(255, 0, 0, 0.1);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.15), inset 0 0 20px rgba(255, 0, 0, 0.05);
             text-align: center;
             position: relative;
             z-index: 10;
         }
 
-        /* ГЛИТЧ ТЕКСТ (ХРОМАТИЧЕСКАЯ АБЕРРАЦИЯ) */
+        /* РЕАЛИСТИЧНАЯ ЗОНА ГЛАЗА */
+        .eye-zone {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 35px;
+            background: #000;
+            border: 1px dashed #400;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0,0,0,1);
+        }
+
+        /* Анатомическая форма глаза */
+        .demon-eye {
+            position: relative;
+            width: 170px;
+            height: 100px;
+            background: #fff;
+            /* Формируем уголки глаза */
+            border-radius: 70% 15% 70% 15%;
+            transform: rotate(-15deg); 
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.8), inset 10px 10px 15px rgba(150, 0, 0, 0.5);
+            animation: eyeBlink 4s infinite, eyeGlitch 6s infinite;
+        }
+
+        /* Кровавая радужка */
+        .iris {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #200000 0%, #800000 40%, #ff0000 75%, #400000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0,0,0,0.9);
+            transition: transform 0.2s ease;
+        }
+
+        /* Реалистичный зрачок (вертикальный, дьявольский) */
+        .pupil {
+            width: 14px;
+            height: 65px;
+            background: #000;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(0,0,0,0.8);
+            transition: all 0.3s ease;
+        }
+
+        /* Световой блик для эффекта влажного глаза */
+        .iris::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            filter: blur(0.5px);
+        }
+
+        /* Взаимодействие: зрачок сильно сужается при наведении */
+        .eye-zone:hover .pupil {
+            transform: scaleX(0.25);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        @keyframes eyeBlink {
+            0%, 92%, 100% { transform: rotate(-15deg) scaleY(1); }
+            96% { transform: rotate(-15deg) scaleY(0); }
+        }
+
+        @keyframes eyeGlitch {
+            0%, 95%, 97%, 100% { transform: rotate(-15deg) translate(0, 0); filter: hue-rotate(0deg); }
+            96% { transform: rotate(-15deg) translate(-8px, 4px) scaleY(1.2); filter: hue-rotate(120deg) saturate(2); }
+        }
+
+        /* ГЛИТЧ ЗАГОЛОВОК */
         .glitch-title {
             font-size: 2.2rem;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             color: #fff;
             position: relative;
             display: inline-block;
             margin-bottom: 5px;
-            text-shadow: 0.05em 0 0 rgba(255,0,0,.75), -0.025em -0.05em 0 rgba(0,255,0,.75), 0.025em 0.05em 0 rgba(0,0,255,.75);
-            animation: textGlitch 1s infinite alternate-reverse;
+            text-shadow: 2px 0 0 rgba(255,0,0,.75), -1px -2px 0 rgba(0,255,0,.75), 1px 2px 0 rgba(0,0,255,.75);
+            animation: textGlitch 1.5s infinite alternate-reverse;
         }
 
         @keyframes textGlitch {
-            0% { text-shadow: 2px 0 0 rgba(255,0,0,.75), -1px -2px 0 rgba(0,255,0,.75), 1px 2px 0 rgba(0,0,255,.75); }
-            14% { text-shadow: 2px 0 0 rgba(255,0,0,.75), -1px -2px 0 rgba(0,255,0,.75), 1px 2px 0 rgba(0,0,255,.75); }
-            15% { text-shadow: -2px -2px 0 rgba(255,0,0,.75), 2px 2px 0 rgba(0,255,0,.75), -2px 3px 0 rgba(0,0,255,.75); transform: skewX(10deg); }
-            16% { text-shadow: 3px 1px 0 rgba(255,0,0,.75), -2px -1px 0 rgba(0,255,0,.75), 2px -2px 0 rgba(0,0,255,.75); transform: skewX(-15deg); }
-            17% { text-shadow: 2px 0 0 rgba(255,0,0,.75), -1px -2px 0 rgba(0,255,0,.75), 1px 2px 0 rgba(0,0,255,.75); transform: skewX(0deg); }
-            100% { text-shadow: 1px 2px 0 rgba(255,0,0,.75), -2px -1px 0 rgba(0,255,0,.75), -1px -2px 0 rgba(0,0,255,.75); }
+            0%, 85% { text-shadow: 2px 0 0 rgba(255,0,0,.75), -1px -2px 0 rgba(0,255,0,.75), 1px 2px 0 rgba(0,0,255,.75); transform: skewX(0deg); }
+            86% { text-shadow: -3px -2px 0 rgba(255,0,0,.75), 3px 2px 0 rgba(0,255,0,.75), -2px 3px 0 rgba(0,0,255,.75); transform: skewX(15deg); }
+            88% { text-shadow: 3px 2px 0 rgba(255,0,0,.75), -3px -1px 0 rgba(0,255,0,.75), 2px -2px 0 rgba(0,0,255,.75); transform: skewX(-15deg); }
+            89% { transform: skewX(0deg); }
         }
 
         .status {
-            font-size: 0.85rem;
-            color: #555;
-            letter-spacing: 5px;
-            margin-bottom: 30px;
+            font-size: 0.8rem;
+            color: #444;
+            letter-spacing: 6px;
+            margin-bottom: 35px;
             text-transform: uppercase;
         }
 
-        /* ЦИФРОВОЙ ИСКАЖЕННЫЙ ГЛАЗ */
-        .eye-zone {
-            width: 100%;
-            height: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 35px;
-            background: #000;
-            border: 1px dashed #300;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .demon-eye {
-            width: 140px;
-            height: 80px;
-            background: #ff0000;
-            border-radius: 50%/50%;
-            box-shadow: 0 0 20px #ff0000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: eyeBlink 3s infinite, eyeGlitch 5s infinite;
-        }
-
-        .pupil {
-            width: 18px;
-            height: 70px;
-            background: #000;
-            border-radius: 50%;
-        }
-
-        @keyframes eyeBlink {
-            0%, 92%, 100% { transform: scaleY(1); }
-            96% { transform: scaleY(0); }
-        }
-
-        @keyframes eyeGlitch {
-            0%, 94%, 96%, 100% { transform: translate(0, 0) scaleX(1); filter: hue-rotate(0deg); }
-            95% { transform: translate(-10px, 5px) scaleX(1.3); filter: hue-rotate(90deg) saturate(3); }
-            97% { transform: translate(10px, -5px) scaleY(0.8); }
-        }
-
-        /* СПИСОК С ТРЯСКОЙ ПРИ НАВЕДЕНИИ */
-        .data-list {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 35px;
-        }
-
-        .data-list li {
-            padding: 12px 5px;
-            border-bottom: 1px solid #200;
-            font-size: 0.95rem;
-            color: #888;
-            transition: color 0.2s;
-        }
-
-        .data-list li:hover {
-            color: #fff;
-            animation: shake 0.3s infinite linear;
-        }
-
-        .data-list li strong {
-            color: #ff0000;
-            float: right;
-        }
-
-        @keyframes shake {
-            0% { transform: translate(0, 0); }
-            20% { transform: translate(-2px, 1px); }
-            40% { transform: translate(1px, -1px); }
-            60% { transform: translate(-1px, -1px); }
-            80% { transform: translate(2px, 1px); }
-            100% { transform: translate(0, 0); }
-        }
-
-        /* ГЛИТЧ КНОПКА */
+        /* КНОПКА С ТРЯСКОЙ */
         .glitch-btn {
             display: block;
             background: #ff0000;
             color: #000;
-            padding: 15px;
+            padding: 16px;
             font-weight: bold;
             text-decoration: none;
             letter-spacing: 3px;
             text-transform: uppercase;
             border: 1px solid #ff0000;
             transition: 0.2s;
-            position: relative;
         }
 
         .glitch-btn:hover {
             background: #000;
             color: #ff0000;
-            box-shadow: 0 0 20px #ff0000;
+            box-shadow: 0 0 25px #ff0000;
             animation: shake 0.2s infinite linear;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-2px, 1px); }
+            50% { transform: translate(1px, -1px); }
+            75% { transform: translate(-1px, 1px); }
+            100% { transform: translate(0, 0); }
         }
     </style>
 </head>
@@ -200,27 +212,21 @@
 
     <div class="terminal-box">
         
-        <!-- Глаз, который штормит от глитчей -->
+        <!-- Секция с детализированным глазом -->
         <div class="eye-zone">
             <div class="demon-eye">
-                <div class="pupil"></div>
+                <div class="iris">
+                    <div class="pupil"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Текст, который двоится -->
-        <h1 class="glitch-title">АНДРЕЙ ИВАНОВИЧ</h1>
+        <!-- Обезличенный заголовок -->
+        <h1 class="glitch-title">ACCESS_GRANTED</h1>
         <div class="status">▲ PROTOCOL_666 ▲</div>
 
-        <!-- Наведи мышку на строки, чтобы они начали дергаться -->
-        <ul class="data-list">
-            <li>[ОБИТЕЛЬ]: <strong>ААСК</strong></li>
-            <li>[ОРДЕН]: <strong>ДЕКОР И ОТДЕЛКА</strong></li>
-            <li>[СТАТУС]: <strong>ЦИФРОВОЙ ХАОС</strong></li>
-            <li>[ПРИБЫТИЕ]: <strong>01.01.200X</strong></li>
-        </ul>
-
-        <!-- Кнопка с эффектом тряски -->
-        <a href="https://t.me" target="_blank" class="glitch-btn">ПРИЗВАТЬ ТГ</a>
+        <!-- Единственная кнопка связи -->
+        <a href="https://t.me" target="_blank" class="glitch-btn">СВЯЗАТЬСЯ</a>
     </div>
 
 </body>
