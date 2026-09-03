@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>...</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #000000; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            overflow: hidden; 
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        canvas { 
+            display: block; 
+            max-width: 100vw; 
+            max-height: 100vh; 
+        }
+        .tg-link-hidden {
+            position: absolute;
+            bottom: 30px;
+            color: #060606;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 7px;
+            transition: all 1s ease;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            z-index: 100;
+        }
+        .tg-link-hidden:hover {
+            color: #3b0000;
+            text-shadow: 0 0 12px rgba(59, 0, 0, 0.85);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Мощный генеративный холст высокого разрешения -->
+    <canvas id="renderCanvas" width="800" height="800"></canvas>
+
+    <!-- Скрытый контакт в Бездне -->
+    <a href="https://t.me" target="_blank" class="tg-link-hidden">CONTACT_COMMUNICATION</a>
+
+    <!-- Последовательное подключение модулей нашего движка -->
+    <script src="eyes.js"></script>
+    <script src="mouth.js"></script>
+    <script src="engine.js"></script>
+
+</body>
+</html>
