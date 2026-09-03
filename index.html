@@ -6,7 +6,6 @@
     <title>...</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
         body { 
             background: #000000; 
             min-height: 100vh;
@@ -17,294 +16,198 @@
             overflow: hidden;
             position: relative;
         }
-
-        /* КОНТЕЙНЕР ДЛЯ МОНСТРА */
-        .monster-face {
+        .monster-container {
             position: relative;
-            width: 400px;
-            height: 350px;
+            width: 440px;
+            height: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
         }
-
-        /* ЖИВЫЕ ГЛАЗА */
-        .eyes-container {
+        .eyes-section {
             display: flex;
             justify-content: space-between;
-            width: 280px;
+            width: 320px;
             margin-top: 40px;
         }
-
-        .eye-socket {
+        .eye-frame {
             position: relative;
-            width: 80px;
-            height: 48px;
-            background: #080808; 
-            border-radius: 50% 15%;
-            transform: rotate(-10deg);
+            width: 100px;
+            height: 38px;
+            background: #020000;
+            border-radius: 85% 0px 85% 0px;
+            transform: rotate(-16deg);
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 
-                inset 0 0 15px rgba(0, 0, 0, 0.9), 
-                inset 0 4px 10px rgba(100, 0, 0, 0.2),
-                0 0 8px rgba(255, 0, 0, 0.05); 
-            opacity: 0.6;
-            animation: blinkAction 5s infinite; /* Автономное моргание */
+            box-shadow: 0 0 15px #000, inset 0 6px 12px #000, inset 0 -4px 10px rgba(130,0,0,0.35), 0 2px 10px rgba(180,0,0,0.08);
+            opacity: 0.55;
+            animation: blinkLeft 6.5s infinite;
         }
-
-        .eye-socket.right {
-            border-radius: 15% 50%;
-            transform: rotate(10px);
+        .eye-frame.right {
+            border-radius: 0px 85% 0px 85%;
+            transform: rotate(16deg);
+            animation: blinkRight 6.5s infinite;
         }
-
-        /* Анимация моргания век */
-        @keyframes blinkAction {
-            0%, 93%, 97%, 100% { transform: scaleY(1) rotate(-10deg); }
-            95% { transform: scaleY(0) rotate(-10deg); }
+        @keyframes blinkLeft {
+            0%, 93%, 97%, 100% { transform: scaleY(1) rotate(-16deg); }
+            95% { transform: scaleY(0.05) rotate(-16deg); }
         }
-        @keyframes blinkActionRight {
-            0%, 93%, 97%, 100% { transform: scaleY(1) rotate(10deg); }
-            95% { transform: scaleY(0) rotate(10deg); }
+        @keyframes blinkRight {
+            0%, 93%, 97%, 100% { transform: scaleY(1) rotate(16deg); }
+            95% { transform: scaleY(0.05) rotate(16deg); }
         }
-        .eye-socket.right {
-            animation: blinkActionRight 5s infinite;
-        }
-
-        /* Объемная радужка */
         .iris {
             position: absolute;
-            width: 42px;
-            height: 42px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: radial-gradient(circle, #100000 0%, #500000 50%, #990000 85%, #200000 100%);
+            background: radial-gradient(circle, #050000 0%, #3d0000 35%, #9e0000 70%, #ff1a1a 90%, #290000 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.8);
-            transition: transform 0.5s ease-in-out; /* Плавный перевод взгляда */
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.95);
+            transition: transform 0.35s ease-in-out;
         }
-
-        /* Реалистичный зрачок */
         .pupil {
-            width: 8px;
-            height: 32px;
+            width: 3.5px;
+            height: 38px;
             background: #000000;
             border-radius: 50%;
+            box-shadow: 0 0 5px #000;
+            animation: pupilPulse 5s infinite alternate ease-in-out;
         }
-
-        /* Влажный блик света */
+        @keyframes pupilPulse {
+            0% { transform: scaleX(1); }
+            100% { transform: scaleX(0.3) scaleY(0.95); }
+        }
+        .iris::before {
+            content: ''; position: absolute; top: 10px; left: 14px;
+            width: 5px; height: 5px; background: rgba(255, 255, 255, 0.75); border-radius: 50%;
+        }
         .iris::after {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
+            content: ''; position: absolute; top: 24px; left: 26px;
+            width: 2px; height: 2px; background: rgba(255, 255, 255, 0.4); border-radius: 50%;
         }
-
-        /* АНАТОМИЧЕСКАЯ УЛЫБКА И ЗУБЫ */
-        .mouth-zone {
+        .mouth-container {
             position: relative;
-            width: 320px;
-            height: 120px;
-            margin-bottom: 20px;
+            width: 360px;
+            height: 140px;
+            margin-bottom: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-
-        .smile {
+        .jaws {
             position: absolute;
-            width: 260px;
-            height: 70px;
-            background: #030303;
-            border-radius: 0 0 130px 130px;
-            border: 2px solid rgba(120, 10, 10, 0.2);
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.9), inset 0 0 20px #000;
+            width: 300px;
+            height: 85px;
+            background: radial-gradient(ellipse at center, #080202 0%, #000000 80%);
+            border-radius: 8px 8px 150px 150px;
+            border-top: 4px solid #1a0303;
+            border-bottom: 3px solid #240404;
+            box-shadow: inset 0 0 30px #000, 0 8px 25px #000, 0 0 15px rgba(100, 0, 0, 0.05);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            padding: 0px 8px;
             opacity: 0.5;
+            transition: opacity 0.5s ease;
         }
-
-        /* Ряды зубов */
-        .teeth-row {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            height: 22px;
-        }
-
-        .teeth-row.bottom {
-            transform: scaleY(-1);
-        }
-
+        .monster-container:hover .jaws { opacity: 0.85; }
+        .teeth-line { display: flex; justify-content: center; width: 100%; height: 28px; position: relative; z-index: 3; }
+        .teeth-line.lower { transform: scaleY(-1); }
         .tooth {
-            width: 14px;
-            height: 100%;
-            background: linear-gradient(to bottom, #111 0%, #666 40%, #888 75%, #333 100%);
-            margin: 0 1px;
-            border-radius: 0 0 4px 4px;
-            box-shadow: inset 1px 0 2px rgba(0,0,0,0.5);
-            filter: brightness(0.7);
+            width: 0; height: 0;
+            border-left: 8px solid transparent; border-right: 8px solid transparent;
+            border-top: 24px solid #4a4944; margin: 0 0.5px; position: relative;
+            filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.85));
         }
-
-        .tooth.fang {
-            height: 130%;
-            width: 15px;
-            border-radius: 0 0 50% 50%;
-            background: linear-gradient(to bottom, #111 0%, #777 40%, #999 80%, #333 100%);
+        .tooth::after {
+            content: ''; position: absolute; top: -24px; left: -6px; width: 0; height: 0;
+            border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 20px solid #8c897f;
         }
-
-        /* ЖИВОЙ ЯЗЫК */
-        .tongue {
+        .tooth.prime { border-top-width: 34px; border-left-width: 9.5px; border-right-width: 9.5px; }
+        .tooth.prime::after { border-top-width: 30px; border-left-width: 8px; border-right-width: 8px; border-top-color: #a3a094; }
+        .gory-tongue {
             position: absolute;
-            bottom: -40px;
-            left: 50%;
-            width: 90px;
-            height: 80px;
-            background: linear-gradient(to top, #300000, #800505 60%, #b30909 100%);
-            border-radius: 40% 40% 50% 50%;
-            transform: translateX(-50%) scaleY(0);
-            transform-origin: bottom center;
-            z-index: 2;
-            box-shadow: inset 0 10px 15px rgba(0,0,0,0.6), 0 0 15px rgba(179, 9, 9, 0.4);
-            border: 1px solid #400;
+            bottom: -32px; left: 50%; width: 85px; height: 90px;
+            background: linear-gradient(to top, #140000 0%, #4a0202 40%, #7d0404 75%, #ad0707 95%, #ff2b2b 100%);
+            border-radius: 42% 42% 50% 50%; transform: translateX(-50%) scaleY(0);
+            transform-origin: bottom center; z-index: 2;
+            box-shadow: inset 0 12px 18px rgba(0, 0, 0, 0.75), 0 4px 15px rgba(125, 4, 4, 0.4), inset 0 -10px 15px rgba(0,0,0,0.5);
+            border: 1px solid #380202;
         }
-
-        .tongue::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 50%;
-            width: 2px; height: 80%;
-            background: rgba(0,0,0,0.4);
-            transform: translateX(-50%);
+        .gory-tongue::before {
+            content: ''; position: absolute; top: 0; left: 50%; width: 3px; height: 75%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.2)); transform: translateX(-50%); border-radius: 50%;
         }
-
-        /* Анимация облизывания */
-        @keyframes lickAction {
+        @keyframes lickMotion {
             0% { transform: translateX(-50%) scaleY(0) translateY(0); }
-            20% { transform: translateX(-50%) scaleY(1) translateY(-25px); } 
-            40% { transform: translateX(-35%) scaleY(1.1) translateY(-30px) rotate(10deg); } 
-            60% { transform: translateX(-65%) scaleY(1.1) translateY(-30px) rotate(-10deg); } 
-            80% { transform: translateX(-50%) scaleY(1) translateY(-20px); }
+            15% { transform: translateX(-50%) scaleY(1.05) translateY(-24px); } 
+            35% { transform: translateX(-28%) scaleY(1.1) translateY(-28px) rotate(14deg); filter: brightness(1.1); } 
+            55% { transform: translateX(-72%) scaleY(1.1) translateY(-28px) rotate(-14deg); filter: brightness(1.1); } 
+            75% { transform: translateX(-50%) scaleY(1) translateY(-14px); }
             100% { transform: translateX(-50%) scaleY(0) translateY(0); } 
         }
-
-        .tongue.lick {
-            animation: lickAction 1.8s ease-in-out forwards;
+        .gory-tongue.active-lick { animation: lickMotion 2.2s cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards; }
+        .tg-link-dark {
+            position: absolute; bottom: 40px; color: #080808; text-decoration: none;
+            font-family: 'Courier New', monospace; font-size: 0.75rem; letter-spacing: 6px;
+            transition: all 0.8s ease; text-transform: uppercase; padding: 10px 20px;
         }
-
-        /* ССЫЛКА НА ТЕЛЕГРАМ */
-        .tg-anchor {
-            position: absolute;
-            bottom: 40px;
-            color: #121212; 
-            text-decoration: none;
-            font-family: monospace;
-            font-size: 0.8rem;
-            letter-spacing: 4px;
-            transition: all 0.6s ease;
-            text-transform: uppercase;
-            padding: 10px 20px;
-            border: 1px solid transparent;
-        }
-
-        .tg-anchor:hover {
-            color: #700000; 
-            text-shadow: 0 0 10px rgba(112, 0, 0, 0.6);
-            border-color: rgba(112, 0, 0, 0.2);
-            background: rgba(5, 0, 0, 0.4);
-        }
+        .tg-link-dark:hover { color: #4a0000; text-shadow: 0 0 10px rgba(74, 0, 0, 0.8); }
     </style>
 </head>
 <body>
-
-    <div class="monster-face">
-        
-        <!-- Глаза с автономным движением взгляда -->
-        <div class="eyes-container">
-            <div class="eye-socket left">
-                <div class="iris">
-                    <div class="pupil"></div>
-                </div>
-            </div>
-            <div class="eye-socket right">
-                <div class="iris">
-                    <div class="pupil"></div>
-                </div>
-            </div>
+    <div class="monster-container">
+        <div class="eyes-section">
+            <div class="eye-frame left"><div class="iris"><div class="pupil"></div></div></div>
+            <div class="eye-frame right"><div class="iris"><div class="pupil"></div></div></div>
         </div>
-
-        <!-- Рот с зубами и языком -->
-        <div class="mouth-zone">
-            <div class="smile">
-                <div class="teeth-row">
-                    <div class="tooth"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth fang"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth fang"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth"></div>
+        <div class="mouth-container">
+            <div class="jaws">
+                <div class="teeth-line">
+                    <div class="tooth"></div><div class="tooth prime"></div><div class="tooth"></div>
+                    <div class="tooth"></div><div class="tooth prime"></div><div class="tooth"></div>
+                    <div class="tooth"></div><div class="tooth prime"></div><div class="tooth"></div>
                 </div>
-                <div class="teeth-row bottom">
-                    <div class="tooth"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth fang"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth fang"></div>
-                    <div class="tooth"></div>
-                    <div class="tooth"></div>
+                <div class="teeth-line lower">
+                    <div class="tooth"></div><div class="tooth prime"></div><div class="tooth"></div>
+                    <div class="tooth"></div><div class="tooth"></div><div class="tooth"></div>
+                    <div class="tooth prime"></div><div class="tooth"></div><div class="tooth"></div>
                 </div>
             </div>
-            <div class="tongue" id="monsterTongue"></div>
+            <div class="gory-tongue" id="lickTongue"></div>
         </div>
-
     </div>
-
-    <!-- Текстовая скрытая ссылка строго внизу -->
-    <a href="https://t.me" target="_blank" class="tg-anchor">CONTACT_COMMUNICATION</a>
-
-    <script>
-        // Скрипт автономного случайного блуждания взгляда
-        const irises = document.querySelectorAll('.iris');
-        
-        function moveEyesRandomly() {
-            // Генерируем случайный угол и небольшое смещение
+    <a href="https://t.me" target="_blank" class="tg-link-dark">CONTACT_COMMUNICATION</a>
+        <script>
+        const monsterIrises = document.querySelectorAll('.iris');
+        function updateEyeDirection() {
             const angle = Math.random() * Math.PI * 2;
-            const distance = Math.random() * 7; // Максимальный радиус движения зрачка в пикселях
-            
-            const targetX = Math.cos(angle) * distance;
-            const targetY = Math.sin(angle) * distance;
-            
-            irises.forEach((iris) => {
-                iris.style.transform = `translate(${targetX}px, ${targetY}px)`;
+            const radius = Math.random() * 8.5;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            monsterIrises.forEach((iris) => {
+                iris.style.transform = `translate(${x}px, ${y}px)`;
             });
-            
-            // Задаем случайный интервал до следующего перевода взгляда (от 1 до 3.5 секунд)
-            const nextMoveInterval = Math.random() * 2500 + 1000;
-            setTimeout(moveEyesRandomly, nextMoveInterval);
+            setTimeout(updateEyeDirection, Math.random() * 1800 + 900);
         }
+        updateEyeDirection();
 
-        // Запуск системы автономного взгляда
-        moveEyesRandomly();
-
-        // Скрипт автоматического облизывания губ (каждые 6.5 секунд)
-        const tongue = document.getElementById('monsterTongue');
-        
-        function triggerLick() {
-            tongue.classList.add('lick');
-            setTimeout(() => {
-        
+        const tongueObj = document.getElementById('lickTongue');
+        function runLickCycle() {
+            tongueObj.classList.add('active-lick');
+            setTimeout(() => { tongueObj.classList.remove('active-lick'); }, 2200);
+        }
+        setTimeout(() => {
+            runLickCycle();
+            setInterval(runLickCycle, 7500);
+        }, 1000);
+    </script>
+</body>
+</html>
